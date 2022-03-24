@@ -13,14 +13,14 @@ export class AppComponent {
   public items: string[] = []; // an empty array that is responsible to add a division
   public newTask: string = ''; // A two-way binding preformed witch pushes text on division
 
-  public toDos: Todo | undefined;
+  public toDos: Todo[] | undefined;
 
   constructor(private todoService: TodoService) {
   }
 
   ngOnInit() {
     this.todoService.getToDos().subscribe(
-      todos => this.toDos = todos
+      response => this.toDos = response
     )
   }
 
@@ -35,6 +35,10 @@ export class AppComponent {
   // This fuinction takes to input the task, that has to be deleted
   public deleteTask(index: number) {
     this.items.splice(index, 1);
+  }
+
+  public updateTask(todo: Todo) {
+    this.todoService.postToDos(todo)
   }
 
 
